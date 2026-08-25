@@ -221,22 +221,23 @@
 </div>
 
 <script>
-var target = new Date('2026-09-01T00:00:00');
+var target = new Date("2026-09-01T00:00:00");
 function update() {
   var now = new Date();
   var diff = target - now;
   if (diff <= 0) {
-    document.getElementById('countdown').innerHTML = '<span style="font-family:var(--display);font-size:1.5rem;color:var(--copper);font-style:italic">C'est le grand jour !</span>';
+    document.getElementById("countdown").innerHTML =
+      "<span style=\"font-family:var(--display);font-size:1.5rem;color:var(--copper);font-style:italic\">C’est le grand jour !</span>";
     return;
   }
   var j = Math.floor(diff / 86400000);
   var h = Math.floor((diff % 86400000) / 3600000);
   var m = Math.floor((diff % 3600000) / 60000);
   var s = Math.floor((diff % 60000) / 1000);
-  document.getElementById('cd-j').textContent = String(j).padStart(2,'0');
-  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  document.getElementById("cd-j").textContent = String(j).padStart(2,"0");
+  document.getElementById("cd-h").textContent = String(h).padStart(2,"0");
+  document.getElementById("cd-m").textContent = String(m).padStart(2,"0");
+  document.getElementById("cd-s").textContent = String(s).padStart(2,"0");
 }
 update();
 setInterval(update, 1000);
