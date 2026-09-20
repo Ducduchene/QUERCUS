@@ -470,6 +470,10 @@ fetch('/api/menu',{cache:'no-store'})
   .then(function(d){
     if(d&&d.sections){
       if(d.menuEnfant){delete d.menuEnfant.titre;delete d.menuEnfant.sous;delete d.menuEnfant.entrees;}
+      // Supprimer sauces/accompagnements des sections autres que Plats
+      d.sections.forEach(function(s){
+        if(s.titre!=='Plats'){delete s.sauces;delete s.accompagnements;}
+      });
       renderMenu(d);
     }
   }).catch(function(){});
