@@ -427,10 +427,10 @@ function boxFormule(f){
 
 function boxMenuEnfant(me){
   if(!me)return'';
-  var hasContent=me.prix||(me.entrees&&me.entrees.length)||(me.plats&&me.plats.length)||(me.desserts&&me.desserts.length);
+  var hasContent=me.prix||(me.plats&&me.plats.length)||(me.desserts&&me.desserts.length);
   if(!hasContent)return'';
   var h='<div class="box-block"><div class="menu-block__head"><h3>Menu enfant</h3><span class="rule"></span></div>';
-  if(me.prix)h+='<div class="me-prix-line"><b>Entrée · Plat · Dessert</b><span>'+esc(me.prix)+'</span></div>';
+  if(me.prix)h+='<div class="me-prix-line"><b>Plat · Dessert</b><span>'+esc(me.prix)+'</span></div>';
   
   if(me.plats&&me.plats.length)h+='<div class="me-section"><div class="me-section-title">Plats</div><div class="me-options">'+me.plats.map(esc).join(' · ')+'</div></div>';
   if(me.desserts&&me.desserts.length)h+='<div class="me-section"><div class="me-section-title">Desserts</div><div class="me-options">'+me.desserts.map(esc).join(' · ')+'</div></div>';
@@ -469,7 +469,7 @@ fetch('/api/menu',{cache:'no-store'})
   .then(function(r){return r.ok?r.json():null;})
   .then(function(d){
     if(d&&d.sections){
-      if(d.menuEnfant){delete d.menuEnfant.titre;delete d.menuEnfant.sous;}
+      if(d.menuEnfant){delete d.menuEnfant.titre;delete d.menuEnfant.sous;delete d.menuEnfant.entrees;}
       renderMenu(d);
     }
   }).catch(function(){});
