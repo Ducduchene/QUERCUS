@@ -144,6 +144,7 @@ function attr(s){return(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
 
 // Attendre que le DOM soit prêt
 document.addEventListener('DOMContentLoaded', function() {
+try {
 
 document.querySelectorAll('.tab').forEach(function(btn){
   btn.addEventListener('click',function(){
@@ -461,5 +462,10 @@ gid('saveBtn').addEventListener('click',async function(){
 
 if(PW){Promise.all([loadMenu(),loadNews()]).then(showApp);}
 
+} catch(err) {
+  document.body.innerHTML = '<div style="font-family:sans-serif;padding:2rem;color:red"><h2>Erreur JS</h2><pre>' + err.stack + '</pre></div>';
+}
 }); // fin DOMContentLoaded
 </script>
+</body>
+</html>
