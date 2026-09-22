@@ -158,12 +158,17 @@ document.querySelectorAll('.tab').forEach(function(btn){
 
 async function verifyPw(pw){
   var r;
-  try{r=await fetch('/api/menu',{method:'POST',headers:{'content-type':'application/json','x-admin-key':pw,'x-check':'1'}});}
-  catch(e){return{ok:false,msg:'Impossible de joindre le serveur.'};}
+  try{
+    r=await fetch('/api/menu',{method:'POST',headers:{'content-type':'application/json','x-admin-key':pw,'x-check':'1'}});
+  } catch(e){
+    return{ok:false,msg:'Réseau : '+e.message};
+  }
   if(r.status===200)return{ok:true};
   if(r.status===401)return{ok:false,msg:'Mot de passe incorrect.'};
+  if(r.status===404)return{ok:false,msg:'API introuvable (404) — vérifiez que /api/menu existe.'};
+  if(r.status===500)return{ok:false,msg:'Erreur serveur (500) — vérifiez les bindings KV.'};
   var m='';try{m=(await r.json()).error||'';}catch(e){}
-  return{ok:false,msg:m||'Erreur serveur (code '+r.status+').'};
+  return{ok:false,msg:m||'Erreur inattendue (code '+r.status+').'};
 }
 
 gid('loginBtn').addEventListener('click',async function(){
