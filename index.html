@@ -507,7 +507,9 @@ function renderNews(list){
       if(!n)return;
       document.getElementById('newsModalDate').textContent=fmtDate(n.date)||'';
       document.getElementById('newsModalTitle').textContent=n.titre||'';
-      document.getElementById('newsModalBody').textContent=n.corps||n.extrait||'';
+      var bodyEl=document.getElementById('newsModalBody');
+      bodyEl.innerHTML=(n.photo?'<img src="'+n.photo+'" alt="'+esc(n.titre||'')+'" style="width:100%;max-height:280px;object-fit:cover;margin-bottom:1.2rem;display:block">':'')
+        +(n.corps||n.extrait||'').replace(/\n/g,'<br>');
       document.getElementById('newsModal').classList.remove('hidden');
       document.body.style.overflow='hidden';
     });
